@@ -9,6 +9,7 @@ import com.utils.managers.FileReaderManager;
 
 import gherkin.deps.com.google.gson.Gson;
 import pojo.FlightDetails;
+import pojo.Passwords;
 import pojo.UserAccount;
 
 public class JsonDataReader <T> {
@@ -16,7 +17,12 @@ public class JsonDataReader <T> {
 	
 	@SuppressWarnings("unchecked")
 	public UserAccount getUserAccount() {
-		return (UserAccount) getJsonData((Class<T>) UserAccount.class, testDataFilePath + "UserAccount.json");
+		return (UserAccount) getJsonData((Class<T>) UserAccount.class, testDataFilePath + "ValidUserAccount.json");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Passwords getPasswords() {
+		return (Passwords) getJsonData((Class<T>) Passwords.class, testDataFilePath + "Passwords.json");
 	}
 	
 	@SuppressWarnings("unchecked")

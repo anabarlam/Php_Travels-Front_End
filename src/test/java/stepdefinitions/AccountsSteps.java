@@ -1,5 +1,7 @@
 package stepdefinitions;
 
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -51,10 +53,48 @@ public class AccountsSteps {
 		headerNavigation.goToSignUpPage();
 	}
 
+	@When("^user creates a new account without (.*)$")
+	public void user_creates_a_new_account_without(String signUpField) {
+		Waits.untilPageIsLoaded(basePage.getWebDriverManager().getDriver());
+		signUpPage.signUpWithIncompleteField(signUpField, FileReaderManager.getInstance().getJsonReader().getUserAccount());
+	}
+	
+	@When("^user creates a new account with password that (.*)$")
+	public void user_creates_a_new_account_with_confirmation_password_that(String passwordCondition) {
+		Waits.untilPageIsLoaded(basePage.getWebDriverManager().getDriver());
+		signUpPage.signUpWithPasswordConditions(passwordCondition, FileReaderManager.getInstance().getJsonReader().getUserAccount(),
+				FileReaderManager.getInstance().getJsonReader().getPasswords());
+	}
+	
 	@When("^user creates a new account$")
 	public void user_creates_a_new_account() {
 		Waits.untilJQueryIsDone(basePage.getWebDriverManager().getDriver());
 		signUpPage.signUp(FileReaderManager.getInstance().getJsonReader().getUserAccount());
+	}
+	
+	@Then("^an error requiring (.*) is displayed$")
+	public void an_error_requiring_is_displayed(String requiredField){
+		requiredField = (requiredField.equalsIgnoreCase("confirm password")) 
+				? "password" : requiredField ;
+		String actualError = signUpPage.getFirstSignUpError();
+		String expectedError = "The requiredField field is required.".replace("requiredField", requiredField);
+		try {
+			assertThat("Error message is not displayed.", actualError, equalToIgnoringCase(expectedError));
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			fail("Error message is not displayed.");
+		}
+	}
+	
+	@Then("^an error on password that (.*) is displayed$")
+	public void an_error_on_password_that_is_displayed(String passwordCondition) {
+		String actualError = signUpPage.getFirstSignUpError();
+		String expectedError = (passwordCondition.equalsIgnoreCase("is less than six characters")) 
+				? "The Password field must be at least 6 characters in length." : "Password not matching with confirm password.";
+		try {
+			assertThat("Error message is not displayed.", actualError, equalToIgnoringCase(expectedError));
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			fail("Error message is not displayed.");
+		}
 	}
 
 	@Then("^a new user account is created$")
