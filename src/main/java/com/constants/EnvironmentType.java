@@ -1,4 +1,4 @@
-package com.enums;
+package com.constants;
 
 public enum EnvironmentType {
 	LOCAL,

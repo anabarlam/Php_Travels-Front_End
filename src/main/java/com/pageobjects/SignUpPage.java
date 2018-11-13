@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import com.constants.Literals;
+
 import pojo.Passwords;
 import pojo.UserAccount;
 
@@ -73,20 +75,20 @@ public class SignUpPage {
 	
 	public void signUpWithIncompleteField(String signUpWithout, UserAccount userAccount) {
 		switch(signUpWithout) {
-		case "first name":
-			userAccount.setFirstName("");
+		case Literals.LABEL_FIRST_NAME:
+			userAccount.setFirstName(Literals.EMPTY_STRING_VALUE);
 			break;
-		case "last name":
-			userAccount.setLastName("");
+		case Literals.LABEL_LAST_NAME:
+			userAccount.setLastName(Literals.EMPTY_STRING_VALUE);
 			break;
-		case "email":
-			userAccount.setEmail("");
+		case Literals.LABEL_EMAIL:
+			userAccount.setEmail(Literals.EMPTY_STRING_VALUE);
 			break;
-		case "password":
-			userAccount.setPassword("");
+		case Literals.LABEL_PASSWORD:
+			userAccount.setPassword(Literals.EMPTY_STRING_VALUE);
 			break;
-		case "confirm password":
-			userAccount.setConfirmPassword("");
+		case Literals.LABEL_CONFIRM_PASSWORD:
+			userAccount.setConfirmPassword(Literals.EMPTY_STRING_VALUE);
 		default:
 		}
 		signUp(userAccount);
@@ -94,14 +96,14 @@ public class SignUpPage {
 	
 	public void signUpWithPasswordConditions(String passwordCondition, 
 			UserAccount userAccount, Passwords password) {
-		String passwordValue = "";
-		String confirmPasswordValue = "";
+		String passwordValue = Literals.EMPTY_STRING_VALUE;
+		String confirmPasswordValue = Literals.EMPTY_STRING_VALUE;
 		switch(passwordCondition) {
-		case "do not match":
+		case Literals.TXT_PASSWORD_DO_NOT_MATCH:
 			passwordValue = password.getNonMatching().getPassword();
 			confirmPasswordValue = password.getNonMatching().getConfirmPassword();
 			break;
-		case "is less than six characters":
+		case Literals.TXT_PASSWORD_LESS_THAN_SIX:
 			passwordValue = password.getLessThanSix().getPassword();
 			confirmPasswordValue = password.getLessThanSix().getConfirmPassword();
 			break;

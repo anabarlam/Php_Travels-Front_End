@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.enums.DriverType;
-import com.enums.EnvironmentType;
+import com.constants.DriverType;
+import com.constants.EnvironmentType;
 
 public class ConfigFileReader {
 	private Properties properties;
