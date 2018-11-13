@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import pojo.Passwords;
 import pojo.UserAccount;
 
 public class SignUpPage {
@@ -30,6 +31,9 @@ public class SignUpPage {
 	
 	@FindBy(how = How.CSS, using = ".signupbtn.btn_full.btn.btn-action.btn-block.btn-lg")
 	private WebElement btnSignUp;
+	
+	@FindBy(how = How.CSS, using = ".alert.alert-danger>p")
+	private WebElement txtFirstSignUpError;
 	
 	@FindBy(how = How.CSS, using = ".alert.alert-danger")
 	private WebElement txtSignUpError;
@@ -63,11 +67,56 @@ public class SignUpPage {
 		enterLastName(userAccount.getLastName());
 		enterEmail(userAccount.getEmail());
 		enterPassword(userAccount.getPassword());
-		confirmPassword(userAccount.getPassword());
+		confirmPassword(userAccount.getConfirmPassword());
 		clickSignUpButton();
+	}
+	
+	public void signUpWithIncompleteField(String signUpWithout, UserAccount userAccount) {
+		switch(signUpWithout) {
+		case "first name":
+			userAccount.setFirstName("");
+			break;
+		case "last name":
+			userAccount.setLastName("");
+			break;
+		case "email":
+			userAccount.setEmail("");
+			break;
+		case "password":
+			userAccount.setPassword("");
+			break;
+		case "confirm password":
+			userAccount.setConfirmPassword("");
+		default:
+		}
+		signUp(userAccount);
+	}
+	
+	public void signUpWithPasswordConditions(String passwordCondition, 
+			UserAccount userAccount, Passwords password) {
+		String passwordValue = "";
+		String confirmPasswordValue = "";
+		switch(passwordCondition) {
+		case "do not match":
+			passwordValue = password.getNonMatching().getPassword();
+			confirmPasswordValue = password.getNonMatching().getConfirmPassword();
+			break;
+		case "is less than six characters":
+			passwordValue = password.getLessThanSix().getPassword();
+			confirmPasswordValue = password.getLessThanSix().getConfirmPassword();
+			break;
+		default:
+		}
+		userAccount.setPassword(passwordValue);
+		userAccount.setConfirmPassword(confirmPasswordValue);
+		signUp(userAccount);
 	}
 	
 	public String getSignUpError() {
 		return txtSignUpError.getText();
+	}
+	
+	public String getFirstSignUpError() {
+		return txtFirstSignUpError.getText();
 	}
 }

@@ -5,6 +5,7 @@ public class UserAccount {
 	private String lastName;
 	private String email;
 	private String password;
+	private String confirmPassword;
 	
 	public String getFirstName() {
 		return firstName;
@@ -29,5 +30,11 @@ public class UserAccount {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 }
