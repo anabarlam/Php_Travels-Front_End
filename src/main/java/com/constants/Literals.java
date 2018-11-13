@@ -1,11 +1,29 @@
 package com.constants;
 
-public class Literals {	
+public class Literals {
+	// Wait Messages
+	public static final String WAIT_JQUERY_IN_PROGRESS = "JQuery call is in progress.";
+	public static final String WAIT_DOCUMENT_LOADING = "Document is loading...";
+	
+	// File Path
+	public static final String CONFIG_PROPERTY_FILE_PATH = "configs//Configuration.properties";
+	
+	// File Reader error messages
+	public static final String ERR_JSON_FILE_NOT_FOUND_AT = "Json file not found at : ";
+	public static final String ERR_CONFIG_FILE_NOT_FOUND_AT = "Configuration.properties not found at ";
+	public static final String ERR_CANT_PARSE_NUMBER = "Can't parse expected numeric value : ";
+	public static final String ERR_DRIVER_NOT_IN_CONFIG_FILE = "Web driver path is not specified in the Configuration.properties file.";
+	public static final String ERR_URL_NOT_IN_CONFIG_FILE = "The URL is not specified in the Configuration.properties file.";
+	public static final String ERR_REPORT_CONFIG_NOT_IN_CONFIG_FILE = "Report configuration path is not specified in Configuration.properties file.";
+	public static final String ERR_DATA_PATH_NOT_IN_CONFIG_FILE = "Test data Path is not specified in Configuration.properties file.";
+	public static final String ERR_UNEXPECTED_ENVIRONMENT_NAME = "Unexpected Environment Type key value in Configuration.properties : ";
+	public static final String ERR_UNEXPECTED_BROWSER_NAME = "Unexpected Browser Name Key value in Configuration.properties : " ;
+	
 	// Assertion failure messages
 	public static final String FAIL_MSG_NOT_DISPLAYED = "Error message is not displayed.";
 	public static final String FAIL_USER_CREATION = "Failed to create new user account.";
 	
-	// System error messages
+	// Web page error messages
 	public static final String ERR_PASSWORD_LENGTH = "The Password field must be at least 6 characters in length.";
 	public static final String ERR_PASSWORDS_DONT_MATCH = "Password not matching with confirm password.";
 	public static final String ERR_REQUIRED_SIGN_UP_FIELD = "The requiredField field is required.";
@@ -20,7 +38,7 @@ public class Literals {
 	public static final String LABEL_PASSWORD = "password";
 	public static final String LABEL_CONFIRM_PASSWORD = "confirm password";
 	
-	// Password condition
+	// Password Test Condition
 	public static final String TXT_PASSWORD_LESS_THAN_SIX = "is less than six characters";
 	public static final String TXT_PASSWORD_DO_NOT_MATCH = "do not match";
 }

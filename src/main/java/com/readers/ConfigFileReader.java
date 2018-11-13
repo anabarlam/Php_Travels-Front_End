@@ -8,17 +8,17 @@ import java.util.Properties;
 
 import com.constants.DriverType;
 import com.constants.EnvironmentType;
+import com.constants.Literals;
 
 public class ConfigFileReader {
 	private Properties properties;
 	
 	public ConfigFileReader() {
-		final String propertyFilePath = "configs//Configuration.properties";
-		try(BufferedReader reader = new BufferedReader(new FileReader(propertyFilePath));) {
+		try(BufferedReader reader = new BufferedReader(new FileReader(Literals.CONFIG_PROPERTY_FILE_PATH));) {
 			properties = new Properties();
 			properties.load(reader);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Configuration.properties not found at " + propertyFilePath);
+			throw new RuntimeException(Literals.ERR_CONFIG_FILE_NOT_FOUND_AT + Literals.CONFIG_PROPERTY_FILE_PATH);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,7 +29,7 @@ public class ConfigFileReader {
 		if(driverPath != null) {
 			return driverPath;
 		} else{
-			throw new RuntimeException("driverPath is not specified in the Configuration.properties file");		
+			throw new RuntimeException(Literals.ERR_DRIVER_NOT_IN_CONFIG_FILE);		
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class ConfigFileReader {
 			try {
 				return Long.parseLong(implicitWait);
 			} catch (NumberFormatException e) {
-				throw new RuntimeException("Not able to parse value : " + implicitWait + " to Long");
+				throw new RuntimeException(Literals.ERR_CANT_PARSE_NUMBER + implicitWait);
 			}
 		}
 		return 30;	
@@ -47,8 +47,11 @@ public class ConfigFileReader {
 	
 	public String getUrl() {
 		String url = properties.getProperty("url");
-		if(url != null) return url;
-		else throw new RuntimeException("url is not specified in the Configuration.properties file");
+		if(url != null) {
+			return url;
+		} else {
+			throw new RuntimeException(Literals.ERR_URL_NOT_IN_CONFIG_FILE);
+		}
 	}
 	
 	public DriverType getBrowser() {
@@ -64,7 +67,7 @@ public class ConfigFileReader {
 		case "iexplorer":
 			return DriverType.INTERNETEXPLORER;
 		default:
-			throw new RuntimeException("Browser Name Key value in Configuration.properties is not matched : " + browserName);
+			throw new RuntimeException(Literals.ERR_UNEXPECTED_BROWSER_NAME + browserName);
 		}
 	}
 	
@@ -75,7 +78,7 @@ public class ConfigFileReader {
 		} else if(environmentName.equalsIgnoreCase("remote")) {
 			return EnvironmentType.REMOTE;
 		} else{
-			throw new RuntimeException("Environment Type Key value in Configuration.properties is not matched : " + environmentName);
+			throw new RuntimeException(Literals.ERR_UNEXPECTED_BROWSER_NAME + environmentName);
 		}
 	}
 	
@@ -83,21 +86,26 @@ public class ConfigFileReader {
 		String windowSize = properties.getProperty("windowMaximize");
 		if(windowSize != null) {
 			return Boolean.valueOf(windowSize);
+		} else {
+			return true;
 		}
-		return true;
 	}
 	
 	public String getTestDataPath() {
 		String testDataPath = properties.getProperty("testDataPath");
-		if(testDataPath!= null) return testDataPath;
-		else throw new RuntimeException("Test Data Path not specified in Configuration.properties file for Key:testDataResourcePath");
+		if(testDataPath != null) {
+			return testDataPath;
+		} else {
+			throw new RuntimeException(Literals.CONFIG_PROPERTY_FILE_PATH );
+		}
 	}
 	
 	public String getReportConfigPath() {
 		String reportConfigPath = properties.getProperty("reportConfigPath");
-		if(reportConfigPath!=null) {
+		if(reportConfigPath != null) {
 			return reportConfigPath;
+		} else {
+			throw new RuntimeException(Literals.ERR_REPORT_CONFIG_NOT_IN_CONFIG_FILE);
 		}
-		else throw new RuntimeException("Report Config Path is not specified in Configuration.properties file");
 	}
 }

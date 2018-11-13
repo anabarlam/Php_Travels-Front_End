@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.constants.Literals;
 import com.utils.managers.FileReaderManager;
 
 import gherkin.deps.com.google.gson.Gson;
@@ -36,7 +37,7 @@ public class JsonDataReader <T> {
 		try(BufferedReader reader = new BufferedReader(new FileReader(filePath));) {
 			data = gson.fromJson(reader, theClass);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Json file not found at path : " + testDataFilePath);
+			throw new RuntimeException(Literals.ERR_JSON_FILE_NOT_FOUND_AT + testDataFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
