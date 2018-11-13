@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.constants.Literals;
 import com.pageobjects.AccountPage;
 import com.pageobjects.HeaderNavigation;
 import com.pageobjects.LoginPage;
@@ -74,37 +75,36 @@ public class AccountsSteps {
 	
 	@Then("^an error requiring (.*) is displayed$")
 	public void an_error_requiring_is_displayed(String requiredField){
-		requiredField = (requiredField.equalsIgnoreCase("confirm password")) 
-				? "password" : requiredField ;
+		requiredField = (requiredField.equalsIgnoreCase(Literals.LABEL_CONFIRM_PASSWORD)) 
+				? Literals.LABEL_PASSWORD : requiredField ;
 		String actualError = signUpPage.getFirstSignUpError();
-		String expectedError = "The requiredField field is required.".replace("requiredField", requiredField);
+		String expectedError = Literals.ERR_REQUIRED_SIGN_UP_FIELD.replace("requiredField", requiredField);
 		try {
-			assertThat("Error message is not displayed.", actualError, equalToIgnoringCase(expectedError));
+			assertThat(Literals.FAIL_MSG_NOT_DISPLAYED, actualError, equalToIgnoringCase(expectedError));
 		} catch (org.openqa.selenium.NoSuchElementException e) {
-			fail("Error message is not displayed.");
+			fail(Literals.FAIL_MSG_NOT_DISPLAYED);
 		}
 	}
 	
 	@Then("^an error on password that (.*) is displayed$")
 	public void an_error_on_password_that_is_displayed(String passwordCondition) {
 		String actualError = signUpPage.getFirstSignUpError();
-		String expectedError = (passwordCondition.equalsIgnoreCase("is less than six characters")) 
-				? "The Password field must be at least 6 characters in length." : "Password not matching with confirm password.";
+		String expectedError = (passwordCondition.equalsIgnoreCase(Literals.TXT_PASSWORD_LESS_THAN_SIX)) 
+				? Literals.ERR_PASSWORD_LENGTH : Literals.ERR_PASSWORDS_DONT_MATCH;
 		try {
-			assertThat("Error message is not displayed.", actualError, equalToIgnoringCase(expectedError));
+			assertThat(Literals.FAIL_MSG_NOT_DISPLAYED, actualError, equalToIgnoringCase(expectedError));
 		} catch (org.openqa.selenium.NoSuchElementException e) {
-			fail("Error message is not displayed.");
+			fail(Literals.FAIL_MSG_NOT_DISPLAYED);
 		}
 	}
 
 	@Then("^a new user account is created$")
 	public void a_new_user_account_is_created() {
-		String failMessage = "Failed to create new user account.";
 		Waits.untilJQueryIsDone(basePage.getWebDriverManager().getDriver());
 		try {
-			assertTrue(failMessage, accountPage.getGreetingLocator().isDisplayed());
+			assertTrue(Literals.FAIL_USER_CREATION, accountPage.getGreetingLocator().isDisplayed());
 		} catch (org.openqa.selenium.NoSuchElementException e) {
-			fail(failMessage + signUpPage.getSignUpError());
+			fail(Literals.FAIL_USER_CREATION + signUpPage.getSignUpError());
 		}
 	}
 	

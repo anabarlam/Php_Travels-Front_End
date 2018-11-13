@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.constants.Literals;
 import com.utils.managers.FileReaderManager;
 
 public class Waits {
@@ -34,7 +35,7 @@ public class Waits {
 		{
 			Boolean isJQueryCallDone = (Boolean)((JavascriptExecutor) driver).executeScript("return jQuery.active==0");
 			if(!isJQueryCallDone) {
-				System.out.println("JQuery call is in progress.");
+				System.out.println(Literals.WAIT_JQUERY_IN_PROGRESS);
 			}
 			return isJQueryCallDone;
 		}, timeoutInSeconds);
@@ -49,7 +50,7 @@ public class Waits {
 		{
 			Boolean isPageLoaded = (Boolean) ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
 			if(!isPageLoaded) {
-				System.out.println("Document is loading...");
+				System.out.println(Literals.WAIT_DOCUMENT_LOADING);
 			}
 			return isPageLoaded;
 		}, timeoutInSeconds);

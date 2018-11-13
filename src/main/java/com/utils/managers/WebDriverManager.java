@@ -7,8 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-import com.enums.DriverType;
-import com.enums.EnvironmentType;
+import com.constants.DriverType;
+import com.constants.EnvironmentType;
 
 public class WebDriverManager {
 	private WebDriver driver;
