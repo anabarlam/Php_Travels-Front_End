@@ -1,6 +1,6 @@
 @accounts @signup
 Feature: Sign Up
-Description: This is an example of a thorough testing, covering both the
+Description: This is an example of a functional testing, covering both the
 happy path and the negative scenarios, assuring that all the application
 requirements are met and the system behaves as expected.
 

@@ -21,8 +21,8 @@ import cucumber.api.junit.Cucumber;
 //				"html:target/cucumber-reports",
 				"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"
 		},
-//		tags = {"@flightSearch, @flightBooking, @accounts"}
-		tags = {"@accounts"}
+//		tags = {"@flightSearch, @flightBooking, @signup, @reservation"}
+		tags = {"@reservation"}
 		)
 
 public class TestRunner {
