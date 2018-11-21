@@ -17,9 +17,6 @@ public class HomePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(how = How.CSS, using = ".nav-tabs.RTL [data-title=flights]")
-	private WebElement optnFlightsSearchBar;
-	
 	@FindBy(how = How.ID, using = "s2id_autogen12")
 	private WebElement txtOrigin;
 	
@@ -55,10 +52,6 @@ public class HomePage {
 	
 	private void clickSearchButton() {
 		btnSearch.click();
-	}
-	
-	public void clikFlightSearchBarOption() {
-		optnFlightsSearchBar.click();
 	}
 	
 	public WebElement getInputOriginLocator() {
