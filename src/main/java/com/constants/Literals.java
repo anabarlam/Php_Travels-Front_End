@@ -9,15 +9,10 @@ public class Literals {
 	public static final String CONFIG_PROPERTY_FILE_PATH = "configs//Configuration.properties";
 	
 	// File Reader error messages
-	public static final String ERR_JSON_FILE_NOT_FOUND_AT = "Json file not found at : ";
-	public static final String ERR_CONFIG_FILE_NOT_FOUND_AT = "Configuration.properties not found at ";
+	public static final String FILE_NOT_FOUND_AT = "File not found at ";
+	public static final String ERR_IS_NOT_IN_CONFIG_FILE = " is not specified in the Configuration.properties file.";
 	public static final String ERR_CANT_PARSE_NUMBER = "Can't parse expected numeric value : ";
-	public static final String ERR_DRIVER_NOT_IN_CONFIG_FILE = "Web driver path is not specified in the Configuration.properties file.";
-	public static final String ERR_URL_NOT_IN_CONFIG_FILE = "The URL is not specified in the Configuration.properties file.";
-	public static final String ERR_REPORT_CONFIG_NOT_IN_CONFIG_FILE = "Report configuration path is not specified in Configuration.properties file.";
-	public static final String ERR_DATA_PATH_NOT_IN_CONFIG_FILE = "Test data Path is not specified in Configuration.properties file.";
-	public static final String ERR_UNEXPECTED_ENVIRONMENT_NAME = "Unexpected Environment Type key value in Configuration.properties : ";
-	public static final String ERR_UNEXPECTED_BROWSER_NAME = "Unexpected Browser Name Key value in Configuration.properties : " ;
+	public static final String ERR_UNEXPECTED_CONFIG_VALUE = "Unexpected value of key in Configuration.properties : ";
 	
 	// Assertion failure messages
 	public static final String FAIL_MSG_NOT_DISPLAYED = "Error message is not displayed.";
