@@ -9,6 +9,7 @@ import java.util.Properties;
 import com.constants.DriverType;
 import com.constants.EnvironmentType;
 import com.constants.Literals;
+import com.utils.ExceptionHandler;
 
 public class ConfigFileReader {
 	private Properties properties;
@@ -18,19 +19,19 @@ public class ConfigFileReader {
 			properties = new Properties();
 			properties.load(reader);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException(Literals.ERR_CONFIG_FILE_NOT_FOUND_AT + Literals.CONFIG_PROPERTY_FILE_PATH);
+			ExceptionHandler.fileNotFoundHandler(Literals.CONFIG_PROPERTY_FILE_PATH);
 		} catch (IOException e) {
-			e.printStackTrace();
+			ExceptionHandler.generalExceptionHandler(e);
 		}
 	}
 	
 	public String getDriverPath(){
-		String driverPath = properties.getProperty("driverPath");
-		if(driverPath != null) {
-			return driverPath;
-		} else{
-			throw new RuntimeException(Literals.ERR_DRIVER_NOT_IN_CONFIG_FILE);		
+		String driverPathKey = "driverPath";
+		String driverPathValue = properties.getProperty(driverPathKey);
+		if(driverPathValue == null) {
+			ExceptionHandler.variableNotInConfigFile(driverPathKey);
 		}
+		return driverPathValue;
 	}
 	
 	public long getImplicitWait() {		
@@ -39,47 +40,59 @@ public class ConfigFileReader {
 			try {
 				return Long.parseLong(implicitWait);
 			} catch (NumberFormatException e) {
-				throw new RuntimeException(Literals.ERR_CANT_PARSE_NUMBER + implicitWait);
+				ExceptionHandler.numberFormatHandler(implicitWait);
 			}
 		}
-		return 30;	
+		return 30;
 	}
 	
 	public String getUrl() {
-		String url = properties.getProperty("url");
-		if(url != null) {
-			return url;
-		} else {
-			throw new RuntimeException(Literals.ERR_URL_NOT_IN_CONFIG_FILE);
+		String urlKey = "url";
+		String urlValue = properties.getProperty(urlKey);
+		if(urlValue == null) {
+			ExceptionHandler.variableNotInConfigFile(urlKey);
 		}
+		return urlValue;
 	}
 	
 	public DriverType getBrowser() {
-		String browserName = properties.getProperty("browser").toLowerCase();
-		if(browserName == null) {
+		String browserNameKey = "browser";
+		String browserNameValue = properties.getProperty(browserNameKey);
+		DriverType driverType = null;
+		
+		if(browserNameValue == null) {
 			return DriverType.CHROME;
 		}
-		switch(browserName) {
+		switch(browserNameValue.toLowerCase()) {
 		case "chrome":
-			return DriverType.CHROME;
+			driverType = DriverType.CHROME;
+			break;
 		case "firefox":
-			return DriverType.FIREFOX;
+			driverType = DriverType.FIREFOX;
+			break;
 		case "iexplorer":
-			return DriverType.INTERNETEXPLORER;
+			driverType = DriverType.INTERNETEXPLORER;
+			break;
 		default:
-			throw new RuntimeException(Literals.ERR_UNEXPECTED_BROWSER_NAME + browserName);
+			ExceptionHandler.unexpectedConfigValueHandler(browserNameKey, browserNameValue);
 		}
+		
+		return driverType;
 	}
 	
 	public EnvironmentType getEnvironment() {
-		String environmentName = properties.getProperty("environment");
-		if(environmentName == null || environmentName.equalsIgnoreCase("local")) {
-			return EnvironmentType.LOCAL;
-		} else if(environmentName.equalsIgnoreCase("remote")) {
-			return EnvironmentType.REMOTE;
+		String environmentNameKey = "environment";
+		String environmentNameValue = properties.getProperty(environmentNameKey);
+		EnvironmentType environmentType = null;
+		
+		if(environmentNameValue == null || environmentNameValue.equalsIgnoreCase("local")) {
+			environmentType = EnvironmentType.LOCAL;
+		} else if(environmentNameValue.equalsIgnoreCase("remote")) {
+			environmentType = EnvironmentType.REMOTE;
 		} else{
-			throw new RuntimeException(Literals.ERR_UNEXPECTED_BROWSER_NAME + environmentName);
+			ExceptionHandler.unexpectedConfigValueHandler(environmentNameKey, environmentNameValue);
 		}
+		return environmentType;
 	}
 	
 	public Boolean getBrowserWindowSize() {
@@ -92,20 +105,20 @@ public class ConfigFileReader {
 	}
 	
 	public String getTestDataPath() {
-		String testDataPath = properties.getProperty("testDataPath");
-		if(testDataPath != null) {
-			return testDataPath;
-		} else {
-			throw new RuntimeException(Literals.CONFIG_PROPERTY_FILE_PATH );
+		String testDataPathKey = "testDataPath";
+		String testDataPathValue = properties.getProperty(testDataPathKey);
+		if(testDataPathValue == null) {
+			ExceptionHandler.variableNotInConfigFile(testDataPathKey);
 		}
+		return testDataPathValue;
 	}
 	
 	public String getReportConfigPath() {
-		String reportConfigPath = properties.getProperty("reportConfigPath");
-		if(reportConfigPath != null) {
-			return reportConfigPath;
-		} else {
-			throw new RuntimeException(Literals.ERR_REPORT_CONFIG_NOT_IN_CONFIG_FILE);
+		String reportConfigPathKey = "reportConfigPath";
+		String reportConfigPathValue = properties.getProperty(reportConfigPathKey);
+		if(reportConfigPathValue == null) {
+			ExceptionHandler.variableNotInConfigFile(reportConfigPathKey);
 		}
+		return reportConfigPathValue;
 	}
 }
