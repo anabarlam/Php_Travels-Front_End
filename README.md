@@ -1,5 +1,7 @@
-## Selenium Cucumber Framework
-An automation framework built for testing PHP Travels
+# Selenium Cucumber Framework
+**_An automation framework built for front-end/UI testing._****
+
+
 
 ### Technologies
 - Java
@@ -7,3 +9,6 @@ An automation framework built for testing PHP Travels
 - Selenium
 - Cucumber
 - JUnit
+
+
+** *The site [PHP Travels](https://www.phptravels.net/) is a free web application chosen to cater this test automation initiative.*
